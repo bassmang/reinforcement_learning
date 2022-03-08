@@ -7,7 +7,7 @@ SETLOCAL
 
 CALL %~dp0init.cmd
 PUSHD %~dp0
-
+cmake --version
 REM x64-windows-static-md is a community triplet that sets CRT to dynamic but all the other dependencies to static
 %vcpkgPath% install zlib:x64-windows-static-md
 %vcpkgPath% install flatbuffers:x64-windows-static-md
