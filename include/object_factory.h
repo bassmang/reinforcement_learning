@@ -4,6 +4,7 @@
 #include "err_constants.h"
 #include "trace_logger.h"
 #include <functional>
+#include "vw/common/vwvis.h"
 
 namespace reinforcement_learning { namespace utility
 {

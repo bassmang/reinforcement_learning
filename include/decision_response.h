@@ -5,6 +5,7 @@
 #include <vector>
 
 #include "ranking_response.h"
+#include "vw/common/vwvis.h"
 
 namespace reinforcement_learning {
   class api_status;
@@ -42,22 +43,22 @@ namespace reinforcement_learning {
     ~decision_response() = default;
 
     // Cannot copy ranking_response, so must do a move here.
-    void push_back(const char* event_id, uint32_t action_id, float prob);
+    VW_DLL_PUBLIC void push_back(const char* event_id, uint32_t action_id, float prob);
 
-    size_t size() const;
+    VW_DLL_PUBLIC size_t size() const;
 
-    void set_model_id(const char* model_id);
-    void set_model_id(std::string&& model_id);
-    const char* get_model_id() const;
+    VW_DLL_PUBLIC void set_model_id(const char* model_id);
+    VW_DLL_PUBLIC void set_model_id(std::string&& model_id);
+    VW_DLL_PUBLIC const char* get_model_id() const;
 
-    void clear();
-    const_iterator_t begin() const;
-    iterator_t begin();
-    const_iterator_t end() const;
-    iterator_t end();
+    VW_DLL_PUBLIC void clear();
+    VW_DLL_PUBLIC const_iterator_t begin() const;
+    VW_DLL_PUBLIC iterator_t begin();
+    VW_DLL_PUBLIC const_iterator_t end() const;
+    VW_DLL_PUBLIC iterator_t end();
 
-    decision_response(decision_response&&) noexcept;
-    decision_response& operator=(decision_response&&) noexcept;
+    VW_DLL_PUBLIC decision_response(decision_response&&) noexcept;
+    VW_DLL_PUBLIC decision_response& operator=(decision_response&&) noexcept;
     decision_response(const decision_response&) = delete;
     decision_response& operator =(const decision_response&) = delete;
   };

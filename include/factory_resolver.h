@@ -1,5 +1,7 @@
 #pragma once
 #include "object_factory.h"
+#include "vw/common/vwvis.h"
+
 namespace reinforcement_learning  {
   namespace utility {
     class configuration;
@@ -47,15 +49,15 @@ namespace reinforcement_learning  {
    */
   using time_provider_factory_t = utility::object_factory<i_time_provider, const utility::configuration&>;
 
-  extern data_transport_factory_t& data_transport_factory;
-  extern model_factory_t& model_factory;
-  extern sender_factory_t& sender_factory;
-  extern trace_logger_factory_t& trace_logger_factory;
-  extern time_provider_factory_t& time_provider_factory;
+  VW_DLL_PUBLIC extern data_transport_factory_t& data_transport_factory;
+  VW_DLL_PUBLIC extern model_factory_t& model_factory;
+  VW_DLL_PUBLIC extern sender_factory_t& sender_factory;
+  VW_DLL_PUBLIC extern trace_logger_factory_t& trace_logger_factory;
+  VW_DLL_PUBLIC extern time_provider_factory_t& time_provider_factory;
 
   // For proper static intialization
   // Check https://en.wikibooks.org/wiki/More_C++_Idioms/Nifty_Counter for explanation
-  struct factory_initializer {
+  struct VW_DLL_PUBLIC factory_initializer {
     factory_initializer();
     ~factory_initializer();
     private:

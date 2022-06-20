@@ -15,7 +15,8 @@
 #include "err_constants.h"
 #include "factory_resolver.h"
 #include "sender.h"
-#include "future_compat.h"
+#include "rl_future_compat.h"
+#include "vw/common/vwvis.h"
 
 #include "multistep.h"
 
@@ -72,7 +73,7 @@ namespace reinforcement_learning {
      * @param sender_factory Sender factory.  The default factory provides two senders, one for
      *                       interaction and the other for observation which logs to Event Hub.
      */
-    explicit live_model(
+    VW_DLL_PUBLIC explicit live_model(
       const utility::configuration& config,
       error_fn fn = nullptr,
       void* err_context = nullptr,
@@ -89,7 +90,7 @@ namespace reinforcement_learning {
      * @param status  Optional field with detailed string description if there is an error
      * @return int Return error code.  This will also be returned in the api_status object
      */
-    int init(api_status* status=nullptr);
+    VW_DLL_PUBLIC int init(api_status* status=nullptr);
 
     /**
      * @brief Choose an action, given a list of actions, action features and context features. The
@@ -102,7 +103,7 @@ namespace reinforcement_learning {
      * @param status  Optional field with detailed string description if there is an error
      * @return int Return error code.  This will also be returned in the api_status object
      */
-    int choose_rank(const char * event_id, string_view context_json, ranking_response& resp, api_status* status= nullptr);
+    VW_DLL_PUBLIC int choose_rank(const char * event_id, string_view context_json, ranking_response& resp, api_status* status= nullptr);
 
     /**
      * @brief Choose an action, given a list of actions, action features and context features. The
@@ -115,7 +116,7 @@ namespace reinforcement_learning {
      * @param status  Optional field with detailed string description if there is an error
      * @return int Return error code.  This will also be returned in the api_status object
      */
-    int choose_rank(string_view context_json, ranking_response& resp, api_status* status= nullptr); //event_id is auto-generated
+    VW_DLL_PUBLIC int choose_rank(string_view context_json, ranking_response& resp, api_status* status= nullptr); //event_id is auto-generated
 
     /**
     * @brief Choose an action, given a list of actions, action features and context features. The
@@ -129,7 +130,7 @@ namespace reinforcement_learning {
     * @param status  Optional field with detailed string description if there is an error
     * @return int Return error code.  This will also be returned in the api_status object
     */
-    int choose_rank(const char * event_id, string_view context_json, unsigned int flags, ranking_response& resp, api_status* status = nullptr);
+    VW_DLL_PUBLIC int choose_rank(const char * event_id, string_view context_json, unsigned int flags, ranking_response& resp, api_status* status = nullptr);
 
     /**
     * @brief Choose an action, given a list of actions, action features and context features. The
@@ -142,7 +143,7 @@ namespace reinforcement_learning {
     * @param status  Optional field with detailed string description if there is an error
     * @return int Return error code.  This will also be returned in the api_status object
     */
-    int choose_rank(string_view context_json, unsigned int flags, ranking_response& resp, api_status* status = nullptr); //event_id is auto-generated
+    VW_DLL_PUBLIC int choose_rank(string_view context_json, unsigned int flags, ranking_response& resp, api_status* status = nullptr); //event_id is auto-generated
 
     /**
     * @brief (DEPRECATED) Choose an action from a continuous range, given a list of context features
@@ -157,7 +158,7 @@ namespace reinforcement_learning {
     * @return int Return error code.  This will also be returned in the api_status object
     */
     RL_DEPRECATED("New unified example builder interface is coming")
-    int request_continuous_action(const char * event_id, string_view context_json, unsigned int flags, continuous_action_response& response, api_status* status = nullptr);
+    VW_DLL_PUBLIC int request_continuous_action(const char * event_id, string_view context_json, unsigned int flags, continuous_action_response& response, api_status* status = nullptr);
 
     /**
     * @brief (DEPRECATED) Choose an action from a continuous range, given a list of context features
@@ -171,7 +172,7 @@ namespace reinforcement_learning {
     * @return int Return error code.  This will also be returned in the api_status object
     */
     RL_DEPRECATED("New unified example builder interface is coming")
-    int request_continuous_action(const char * event_id, string_view context_json, continuous_action_response& response, api_status* status = nullptr);
+    VW_DLL_PUBLIC int request_continuous_action(const char * event_id, string_view context_json, continuous_action_response& response, api_status* status = nullptr);
 
     /**
     * @brief (DEPRECATED) Choose an action from a continuous range, given a list of context features
@@ -185,7 +186,7 @@ namespace reinforcement_learning {
     * @return int Return error code.  This will also be returned in the api_status object
     */
     RL_DEPRECATED("New unified example builder interface is coming")
-    int request_continuous_action(string_view context_json, unsigned int flags, continuous_action_response& response, api_status* status = nullptr);
+    VW_DLL_PUBLIC int request_continuous_action(string_view context_json, unsigned int flags, continuous_action_response& response, api_status* status = nullptr);
 
     /**
     * @brief (DEPRECATED) Choose an action from a continuous range, given a list of context features
@@ -198,7 +199,7 @@ namespace reinforcement_learning {
     * @return int Return error code.  This will also be returned in the api_status object
     */
     RL_DEPRECATED("New unified example builder interface is coming")
-    int request_continuous_action(string_view context_json, continuous_action_response& response, api_status* status = nullptr);
+    VW_DLL_PUBLIC int request_continuous_action(string_view context_json, continuous_action_response& response, api_status* status = nullptr);
 
     /**
     * @brief (DEPRECATED) Choose an action from the given set for each slot, given a list of actions, slots,
@@ -213,7 +214,7 @@ namespace reinforcement_learning {
     * @return int Return error code.  This will also be returned in the api_status object
     */
     RL_DEPRECATED("New interface unifying CB with CCB is coming")
-    int request_decision(string_view context_json, unsigned int flags, decision_response& resp, api_status* status = nullptr);
+    VW_DLL_PUBLIC int request_decision(string_view context_json, unsigned int flags, decision_response& resp, api_status* status = nullptr);
 
     /**
     * @brief (DEPRECATED) Choose an action from the given set for each slot, given a list of actions, slots,
@@ -227,7 +228,7 @@ namespace reinforcement_learning {
     * @return int Return error code.  This will also be returned in the api_status object
     */
     RL_DEPRECATED("New interface unifying CB with CCB is coming")
-    int request_decision(string_view context_json, decision_response& resp, api_status* status = nullptr);
+    VW_DLL_PUBLIC int request_decision(string_view context_json, decision_response& resp, api_status* status = nullptr);
 
     /**
     * @brief (DEPRECATED) Choose an action from the given set for each slot, given a list of actions, slots,
@@ -242,32 +243,32 @@ namespace reinforcement_learning {
     * @return int Return error code.  This will also be returned in the api_status object
     */
     RL_DEPRECATED("New unified example builder interface is coming")
-    int request_multi_slot_decision(const char * event_id, string_view context_json, unsigned int flags, multi_slot_response& resp, api_status* status = nullptr);
+    VW_DLL_PUBLIC int request_multi_slot_decision(const char * event_id, string_view context_json, unsigned int flags, multi_slot_response& resp, api_status* status = nullptr);
     RL_DEPRECATED("New unified example builder interface is coming")
-    int request_multi_slot_decision(const char * event_id, string_view context_json, multi_slot_response& resp, api_status* status = nullptr);
+    VW_DLL_PUBLIC int request_multi_slot_decision(const char * event_id, string_view context_json, multi_slot_response& resp, api_status* status = nullptr);
     RL_DEPRECATED("New unified example builder interface is coming")
-    int request_multi_slot_decision(string_view context_json, unsigned int flags, multi_slot_response& resp, api_status* status = nullptr);
+    VW_DLL_PUBLIC int request_multi_slot_decision(string_view context_json, unsigned int flags, multi_slot_response& resp, api_status* status = nullptr);
     RL_DEPRECATED("New unified example builder interface is coming")
-    int request_multi_slot_decision(string_view context_json, multi_slot_response& resp, api_status* status = nullptr);
+    VW_DLL_PUBLIC int request_multi_slot_decision(string_view context_json, multi_slot_response& resp, api_status* status = nullptr);
 
     RL_DEPRECATED("New unified example builder interface is coming")
-    int request_multi_slot_decision(const char * event_id, string_view context_json, unsigned int flags, multi_slot_response& resp, const int* baseline_actions, size_t baseline_actions_size, api_status* status = nullptr);
+    VW_DLL_PUBLIC int request_multi_slot_decision(const char * event_id, string_view context_json, unsigned int flags, multi_slot_response& resp, const int* baseline_actions, size_t baseline_actions_size, api_status* status = nullptr);
 
     RL_DEPRECATED("New unified example builder interface is coming")
-    int request_multi_slot_decision(const char * event_id, string_view context_json, unsigned int flags, multi_slot_response_detailed& resp, api_status* status = nullptr);
+    VW_DLL_PUBLIC int request_multi_slot_decision(const char * event_id, string_view context_json, unsigned int flags, multi_slot_response_detailed& resp, api_status* status = nullptr);
     RL_DEPRECATED("New unified example builder interface is coming")
-    int request_multi_slot_decision(const char * event_id, string_view context_json, multi_slot_response_detailed& resp, api_status* status = nullptr);
+    VW_DLL_PUBLIC int request_multi_slot_decision(const char * event_id, string_view context_json, multi_slot_response_detailed& resp, api_status* status = nullptr);
     RL_DEPRECATED("New unified example builder interface is coming")
-    int request_multi_slot_decision(string_view context_json, unsigned int flags, multi_slot_response_detailed& resp, api_status* status = nullptr);
+    VW_DLL_PUBLIC int request_multi_slot_decision(string_view context_json, unsigned int flags, multi_slot_response_detailed& resp, api_status* status = nullptr);
     RL_DEPRECATED("New unified example builder interface is coming")
-    int request_multi_slot_decision(string_view context_json, multi_slot_response_detailed& resp, api_status* status = nullptr);
+    VW_DLL_PUBLIC int request_multi_slot_decision(string_view context_json, multi_slot_response_detailed& resp, api_status* status = nullptr);
 
     RL_DEPRECATED("New unified example builder interface is coming")
-    int request_multi_slot_decision(const char * event_id, string_view context_json, unsigned int flags, multi_slot_response_detailed& resp, const int* baseline_actions, size_t baseline_actions_size, api_status* status = nullptr);
+    VW_DLL_PUBLIC int request_multi_slot_decision(const char * event_id, string_view context_json, unsigned int flags, multi_slot_response_detailed& resp, const int* baseline_actions, size_t baseline_actions_size, api_status* status = nullptr);
 
     //multistep
-    int request_episodic_decision(const char *event_id, const char *previous_id, string_view context_json, ranking_response &resp, episode_state &episode, api_status *status = nullptr);
-    int request_episodic_decision(const char *event_id, const char *previous_id, string_view context_json, unsigned int flags, ranking_response &resp, episode_state &episode, api_status *status = nullptr);
+    VW_DLL_PUBLIC int request_episodic_decision(const char *event_id, const char *previous_id, string_view context_json, ranking_response &resp, episode_state &episode, api_status *status = nullptr);
+    VW_DLL_PUBLIC int request_episodic_decision(const char *event_id, const char *previous_id, string_view context_json, unsigned int flags, ranking_response &resp, episode_state &episode, api_status *status = nullptr);
 
     /**
     * @brief Report that action was taken.
@@ -277,7 +278,7 @@ namespace reinforcement_learning {
     * @param status  Optional field with detailed string description if there is an error
     * @return int Return error code.  This will also be returned in the api_status object
     */
-    int report_action_taken(const char* event_id, api_status* status = nullptr);
+    VW_DLL_PUBLIC int report_action_taken(const char* event_id, api_status* status = nullptr);
 
     /**
     * @brief Report that action was taken.
@@ -288,7 +289,7 @@ namespace reinforcement_learning {
     * @param status  Optional field with detailed string description if there is an error
     * @return int Return error code.  This will also be returned in the api_status object
     */
-    int report_action_taken(const char* primary_id, const char* secondary_id, api_status* status = nullptr);
+    VW_DLL_PUBLIC int report_action_taken(const char* primary_id, const char* secondary_id, api_status* status = nullptr);
 
     /**
      * @brief Report the outcome for the top action.
@@ -299,7 +300,7 @@ namespace reinforcement_learning {
      * @param status  Optional field with detailed string description if there is an error
      * @return int Return error code.  This will also be returned in the api_status object
      */
-    int report_outcome(const char* event_id, const char* outcome, api_status* status= nullptr);
+    VW_DLL_PUBLIC int report_outcome(const char* event_id, const char* outcome, api_status* status= nullptr);
 
     /**
      * @brief Report the outcome for the top action.
@@ -310,7 +311,7 @@ namespace reinforcement_learning {
      * @param status  Optional field with detailed string description if there is an error
      * @return int Return error code.  This will also be returned in the api_status object
      */
-    int report_outcome(const char* event_id, float outcome, api_status* status= nullptr);
+    VW_DLL_PUBLIC int report_outcome(const char* event_id, float outcome, api_status* status= nullptr);
 
     /**
      * @brief Report outcome of a decision based on a pair of primary and secondary indentifiers.
@@ -324,7 +325,7 @@ namespace reinforcement_learning {
      * @param status  Optional field with detailed string description if there is an error
      * @return int Return error code.  This will also be returned in the api_status object
      */
-    int report_outcome(const char* primary_id, int secondary_id, float outcome, api_status* status= nullptr);
+    VW_DLL_PUBLIC int report_outcome(const char* primary_id, int secondary_id, float outcome, api_status* status= nullptr);
 
     /**
      * @brief Report outcome of a decision based on a pair of primary and secondary indentifiers.
@@ -338,7 +339,7 @@ namespace reinforcement_learning {
      * @param status  Optional field with detailed string description if there is an error
      * @return int Return error code.  This will also be returned in the api_status object
      */
-    int report_outcome(const char* primary_id, const char *secondary_id, float outcome, api_status* status= nullptr);
+    VW_DLL_PUBLIC int report_outcome(const char* primary_id, const char *secondary_id, float outcome, api_status* status= nullptr);
 
     /**
      * @brief Report outcome of a decision based on a pair of primary and secondary indentifiers.
@@ -352,7 +353,7 @@ namespace reinforcement_learning {
      * @param status  Optional field with detailed string description if there is an error
      * @return int Return error code.  This will also be returned in the api_status object
      */
-    int report_outcome(const char* event_id, int secondary_id, const char* outcome, api_status* status= nullptr);
+    VW_DLL_PUBLIC int report_outcome(const char* event_id, int secondary_id, const char* outcome, api_status* status= nullptr);
 
     /**
      * @brief Report outcome of a decision based on a pair of primary and secondary indentifiers.
@@ -366,14 +367,14 @@ namespace reinforcement_learning {
      * @param status  Optional field with detailed string description if there is an error
      * @return int Return error code.  This will also be returned in the api_status object
      */
-    int report_outcome(const char* primary_id, const char *secondary_id, const char* outcome, api_status* status= nullptr);
+    VW_DLL_PUBLIC int report_outcome(const char* primary_id, const char *secondary_id, const char* outcome, api_status* status= nullptr);
 
     /*
      * @brief Refreshes the model if it has background refresh disabled.
      * @param status  Optional field with detailed string description if there is an error
      * @return int Return error code.  This will also be returned in the api_status object
      */
-    int refresh_model(api_status* status = nullptr);
+    VW_DLL_PUBLIC int refresh_model(api_status* status = nullptr);
 
     /**
      * @brief Error callback function.
@@ -416,17 +417,17 @@ namespace reinforcement_learning {
     /**
      * @brief Move constructor for live model object.
      */
-    live_model(live_model&& other);
+    VW_DLL_PUBLIC live_model(live_model&& other);
 
     /**
      * @brief Move assignment operator swaps implementation.
      */
-    live_model& operator=(live_model&& other);
+    VW_DLL_PUBLIC live_model& operator=(live_model&& other);
 
     live_model(const live_model&) = delete;       //! Prevent accidental copy, since destructor will deallocate the implementation
     live_model& operator=(live_model&) = delete;  //! Prevent accidental copy, since destructor will deallocate the implementation
 
-    ~live_model();
+    VW_DLL_PUBLIC ~live_model();
 
   private:
     std::unique_ptr<live_model_impl> _pimpl;  //! The actual implementation details are forwarded to this object (PIMPL pattern)
